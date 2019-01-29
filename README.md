@@ -6,4 +6,4 @@ to hit a potato instead. Think about like Terraria, but instead of
 mining blocks, we mine potatoes and use our "potato" currency in order
 to buy more efficient tools to farm the potatoes.
 
-We could slowly expand our thoughts as we go on I guess?
+# more information later
