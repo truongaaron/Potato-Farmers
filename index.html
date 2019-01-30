@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<head>
+	<style>
+		#container {
+		  height: 400px;
+		  width: 600px;
+		  outline: solid;   
+		  position: relative;
+		}
+
+		#guy {
+		  position: absolute;
+		  left: 0;
+		  top: 0;
+		}
+	</style>
+</head>
+<body> 
+	<div id="container">
+		<div id="guy">
+			<img src="https://drive.google.com/uc?export=download&id=1izBwd6VlyW9xAvbp0SYzdx9_npcRw5oh"/>
+		</div>
+	</div>
+
+	<script>
+		var guy = document.getElementById('guy');
+		var container = document.getElementById('container');
+
+		var guyLeft = 0;
+		var guyTop = 0;
+
+		function anim(e){
+		  if(e.key == 'ArrowRight'){
+		    guyLeft += 2;
+		    guy.style.left = guyLeft + 'px';
+		      if(guyLeft >= 550) {
+		        guyLeft -= 2;
+		      }
+		  }
+		  if(e.key == 'ArrowLeft'){
+		    guyLeft -= 2;
+		    guy.style.left = guyLeft + 'px';
+		      if(guyLeft <= 0) {
+		        guyLeft += 2;
+		      }
+		  }
+		  if(e.key == 'ArrowDown'){
+		    guyTop += 2;
+		    guy.style.top = guyTop + 'px';
+		      if(guyTop >= 350) {
+		        guyTop -= 2;
+		      }
+		  }
+		  if(e.key == 'ArrowUp'){
+		    guyTop -= 2
+		    guy.style.top = guyTop + 'px';
+		      if(guyTop <= 0) {
+		        guyTop += 2;
+		      }
+		  }
+
+		}
+
+		document.onkeydown = anim;
+	
+	</script>
+</body>
