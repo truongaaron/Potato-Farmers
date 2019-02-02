@@ -15,42 +15,99 @@
 		#guy {
 		  position: absolute;
 		  left: 0;
-		  top: 35px;
+		  bottom: 31%;
 		}
 	</style>
 </head>
+
+
+
 <body> 
+
 	<div id="container">
 		<div id="guy">
-			<img src="https://drive.google.com/uc?export=download&id=1izBwd6VlyW9xAvbp0SYzdx9_npcRw5oh"/>
+			<img id="idle" src="https://drive.google.com/uc?export=download&id=1Wb2HLLaqGUvl-X6-Y6h-Ikj1d1HKOQ-H"/>
 		</div>
-
 		<img src="https://drive.google.com/uc?export=download&id=1fj4RACOlhImM25zikGwO3NLAEUl1BjZW"/>
 	</div>
 
 	<script>
+		/*
+		idle-right: https://drive.google.com/uc?export=download&id=1Wb2HLLaqGUvl-X6-Y6h-Ikj1d1HKOQ-H
+		idle-left: https://drive.google.com/uc?export=download&id=1yRB3nDASmnmS9tH8w2WBq4ebK4cpo9Js
+		attack-right: https://drive.google.com/uc?export=download&id=1ig2iROJWOqvdP7oCcgdnQHhUkZyzgLOi
+		attack-left: https://drive.google.com/uc?export=download&id=1-GQu_YAbvoo2nuXC6l4ce5u7QuWuC0t6
+		run-right: https://drive.google.com/uc?export=download&id=1biXVJA9_lI4es9i4wE497BKGjN1j98wY
+		run-left: https://drive.google.com/uc?export=download&id=1GAJyfg_NRuEDaE61H4x5jTesNsKdduCq
+		*/
 		var guy = document.getElementById('guy');
 		var container = document.getElementById('container');
 
 		var guyLeft = 0;
 		var guyTop = 0;
 
+		// value: 0 = char facing right | value: 1 = char facing left
+		var facing = 0;
+
+		var bool = true;
+
 		function anim(e){
 		  if(e.key == 'ArrowRight'){
+		  	while(bool == true){
+		    	document.getElementById("idle").src='https://drive.google.com/uc?export=download&id=1biXVJA9_lI4es9i4wE497BKGjN1j98wY';
+		    	bool = false;
+			}
+		    facing = 0;
 		    guyLeft += 4;
 		    guy.style.left = guyLeft + 'px';
 		      if(guyLeft >= 1500) {
 		        guyLeft -= 4;
-		      }
+		      } 
+		  	  document.onkeyup = function() {setIdleRight()};
 		  }
+
 		  if(e.key == 'ArrowLeft'){
+		  	while(bool == true){
+		   		document.getElementById("idle").src='https://drive.google.com/uc?export=download&id=1GAJyfg_NRuEDaE61H4x5jTesNsKdduCq';
+		   		bool = false;
+		   	}
+		    facing = 1;
 		    guyLeft -= 4;
 		    guy.style.left = guyLeft + 'px';
 		      if(guyLeft <= 0) {
 		        guyLeft += 4;
 		      }
+		      document.onkeyup = function() {setIdleLeft()};
+		  }
+
+		  if(e.keyCode == 32 && facing == 0){
+			while(bool == true){
+		   		document.getElementById("idle").src='https://drive.google.com/uc?export=download&id=1ig2iROJWOqvdP7oCcgdnQHhUkZyzgLOi';
+		   		bool = false;
+		   	}	
+		   		document.onkeyup = function() {setIdleRight()};
+		  } else if(e.keyCode == 32 && facing == 1){
+		  		while(bool == true){
+		   		document.getElementById("idle").src='https://drive.google.com/uc?export=download&id=1-GQu_YAbvoo2nuXC6l4ce5u7QuWuC0t6';
+		   		bool = false;
+		   	}	
+		   		document.onkeyup = function() {setIdleLeft()};
 		  }
 		}
+
+		function setIdleRight(){
+			document.getElementById("idle").src='https://drive.google.com/uc?export=download&id=1Wb2HLLaqGUvl-X6-Y6h-Ikj1d1HKOQ-H';
+			bool = true;
+		}
+
+		function setIdleLeft(){
+		  	document.getElementById("idle").src='https://drive.google.com/uc?export=download&id=1yRB3nDASmnmS9tH8w2WBq4ebK4cpo9Js';
+		  	bool = true;
+		}
+
+		function noop(){};
+
+
 
 		document.onkeydown = anim;
 	
