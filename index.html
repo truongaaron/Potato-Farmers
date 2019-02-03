@@ -1,22 +1,41 @@
 <!DOCTYPE html>
 <head>
+	<title> Potato Farmer </title>
 	<style>
 		body {
 			overflow: hidden;
 		}
 
+		#potato {
+		  position: absolute;
+		  bottom: 31%;
+		  z-index: 2;
+		}
+
 		#container {  
 		  position: absolute;
 		  bottom: -10px;
-		  left: 2px;
+		  left: 0px;
 		  width: 100%;
+		  z-index: 1;
 		}
 
 		#guy {
 		  position: absolute;
 		  left: 0;
 		  bottom: 31%;
+		  z-index: 3;
 		}
+
+		#background {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 1600px;
+			height: 900px;
+			z-index: -1;
+		}
+
 	</style>
 </head>
 
@@ -24,22 +43,47 @@
 
 <body> 
 
+
 	<div id="container">
 		<div id="guy">
-			<img id="idle" src="https://drive.google.com/uc?export=download&id=1Wb2HLLaqGUvl-X6-Y6h-Ikj1d1HKOQ-H"/>
+			<img id="idle" src="https://drive.google.com/uc?export=download&id=1q0lP-4RUcd3rvM1DKSjTXxbaz3MNwzJJ"/>
 		</div>
-		<img src="https://drive.google.com/uc?export=download&id=1fj4RACOlhImM25zikGwO3NLAEUl1BjZW"/>
+			<img id="floor" src="https://drive.google.com/uc?export=download&id=13YqSII2xgH6Sfqg0HxeH1IVybH1BMuIb"/>
+
+		<div id="potato">
+			<img src="https://drive.google.com/uc?export=download&id=1XZOx4XWZ248kgtiolhdxPlMU8NTRuWbf"/>
+		</div>
+	</div>
+
+	<div>
+		<img id="background" src="https://drive.google.com/uc?export=download&id=15TMaeBr9qk9FV1x_kzenOXuT5OXHquzQ"/> 
 	</div>
 
 	<script>
 		/*
-		idle-right: https://drive.google.com/uc?export=download&id=1Wb2HLLaqGUvl-X6-Y6h-Ikj1d1HKOQ-H
+		platform: https://drive.google.com/uc?export=download&id=13YqSII2xgH6Sfqg0HxeH1IVybH1BMuIb
+		idle-right: https://drive.google.com/uc?export=download&id=1q0lP-4RUcd3rvM1DKSjTXxbaz3MNwzJJ
 		idle-left: https://drive.google.com/uc?export=download&id=1yRB3nDASmnmS9tH8w2WBq4ebK4cpo9Js
 		attack-right: https://drive.google.com/uc?export=download&id=1ig2iROJWOqvdP7oCcgdnQHhUkZyzgLOi
 		attack-left: https://drive.google.com/uc?export=download&id=1-GQu_YAbvoo2nuXC6l4ce5u7QuWuC0t6
 		run-right: https://drive.google.com/uc?export=download&id=1biXVJA9_lI4es9i4wE497BKGjN1j98wY
 		run-left: https://drive.google.com/uc?export=download&id=1GAJyfg_NRuEDaE61H4x5jTesNsKdduCq
+		potato: https://drive.google.com/uc?export=download&id=1XZOx4XWZ248kgtiolhdxPlMU8NTRuWbf
+		background: https://drive.google.com/uc?export=download&id=1MFI6T0rMaDL8YpdPdC59MzjZYFMuvrUz
 		*/
+		var runRight = 'https://drive.google.com/uc?export=download&id=1biXVJA9_lI4es9i4wE497BKGjN1j98wY';
+		var runLeft = 'https://drive.google.com/uc?export=download&id=1GAJyfg_NRuEDaE61H4x5jTesNsKdduCq';
+		var idleRight = 'https://drive.google.com/uc?export=download&id=1q0lP-4RUcd3rvM1DKSjTXxbaz3MNwzJJ';
+		var idleLeft = 'https://drive.google.com/uc?export=download&id=1yRB3nDASmnmS9tH8w2WBq4ebK4cpo9Js';
+
+		var keyState = {};
+		window.addEventListener('keydown', function(e){
+			keyState[e.keyCode || e.which] = true;
+		},true);
+		window.addEventListener('keyup', function(e){
+			keyState[e.keyCode || e.which] = false;
+		},true);
+
 		var guy = document.getElementById('guy');
 		var container = document.getElementById('container');
 
@@ -51,10 +95,10 @@
 
 		var bool = true;
 
-		function anim(e){
-		  if(e.key == 'ArrowRight'){
+		function anim(){
+		  if(keyState[39]){
 		  	while(bool == true){
-		    	document.getElementById("idle").src='https://drive.google.com/uc?export=download&id=1biXVJA9_lI4es9i4wE497BKGjN1j98wY';
+		    	document.getElementById("idle").src=runRight;
 		    	bool = false;
 			}
 		    facing = 0;
@@ -66,9 +110,9 @@
 		  	  document.onkeyup = function() {setIdleRight()};
 		  }
 
-		  if(e.key == 'ArrowLeft'){
+		  if(keyState[37]){
 		  	while(bool == true){
-		   		document.getElementById("idle").src='https://drive.google.com/uc?export=download&id=1GAJyfg_NRuEDaE61H4x5jTesNsKdduCq';
+		   		document.getElementById("idle").src=runLeft;
 		   		bool = false;
 		   	}
 		    facing = 1;
@@ -80,13 +124,13 @@
 		      document.onkeyup = function() {setIdleLeft()};
 		  }
 
-		  if(e.keyCode == 32 && facing == 0){
+		  if(keyState[32] && facing == 0){
 			while(bool == true){
 		   		document.getElementById("idle").src='https://drive.google.com/uc?export=download&id=1ig2iROJWOqvdP7oCcgdnQHhUkZyzgLOi';
 		   		bool = false;
 		   	}	
 		   		document.onkeyup = function() {setIdleRight()};
-		  } else if(e.keyCode == 32 && facing == 1){
+		  } else if(keyState[32] && facing == 1){
 		  		while(bool == true){
 		   		document.getElementById("idle").src='https://drive.google.com/uc?export=download&id=1-GQu_YAbvoo2nuXC6l4ce5u7QuWuC0t6';
 		   		bool = false;
@@ -96,18 +140,18 @@
 		}
 
 		function setIdleRight(){
-			document.getElementById("idle").src='https://drive.google.com/uc?export=download&id=1Wb2HLLaqGUvl-X6-Y6h-Ikj1d1HKOQ-H';
+			document.getElementById("idle").src=idleRight;
 			bool = true;
 		}
 
 		function setIdleLeft(){
-		  	document.getElementById("idle").src='https://drive.google.com/uc?export=download&id=1yRB3nDASmnmS9tH8w2WBq4ebK4cpo9Js';
+		  	document.getElementById("idle").src=idleLeft;
 		  	bool = true;
 		}
 
-		function noop(){};
-
-
+		function detectIfHit(){
+			
+		}
 
 		document.onkeydown = anim;
 	
