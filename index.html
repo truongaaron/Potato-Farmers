@@ -29,7 +29,7 @@
 
 		#background {
 			position: absolute;
-			top: 0;
+			bottom: -10%;
 			left: 0;
 			width: 1600px;
 			height: 900px;
@@ -38,17 +38,25 @@
 
 		#potato-count {
 			position: absolute;
-			left: 45%;
-			top: 40%;
+			left: 43.5%;
+			bottom: 150%;
 		}
+
+		#secret-room {
+			position: absolute;
+			bottom: 27.3%;
+			left: 89.05%;
+			z-index: -1;
+		} 
 
 	</style>
 </head>
 
 <body> 
-	<div><h2 id="potato-count"> Potatoes: </h2></div>
+	
 
 	<div id="container">
+		<div><h2 id="potato-count"> Potatoes: </h2></div>
 		<div id="guy">
 			<img id="idle" src="https://drive.google.com/uc?export=download&id=1yRB3nDASmnmS9tH8w2WBq4ebK4cpo9Js"/>
 		</div>
@@ -57,6 +65,10 @@
 		<div id="potato">
 			<img src="https://drive.google.com/uc?export=download&id=1XZOx4XWZ248kgtiolhdxPlMU8NTRuWbf"/>
 		</div>
+
+		<div> 
+			<img style="height: 200px; width: 200px" id="secret-room" src="https://drive.google.com/uc?export=download&id=1LFDcMjVFeFUD26anSR0aj2jfVF8ihWGz" />
+		</div>
 	</div>
 
 	<div>
@@ -64,6 +76,7 @@
 	</div>
 
 	<script>
+		document.firstElementChild.style.zoom = "reset";
 		/*
 		platform: https://drive.google.com/uc?export=download&id=13YqSII2xgH6Sfqg0HxeH1IVybH1BMuIb
 		idle-right: https://drive.google.com/uc?export=download&id=1q0lP-4RUcd3rvM1DKSjTXxbaz3MNwzJJ
@@ -134,7 +147,7 @@
 		    facing = 0;
 		    guyLeft += 4;
 		    guy.style.left = guyLeft + 'px';
-		      if(guyLeft >= 1500) {
+		      if(guyLeft >= 1460) {
 		        guyLeft -= 4;
 		      } 
 		  	  document.onkeyup = function() {setIdleRight()};
