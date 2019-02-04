@@ -22,7 +22,7 @@
 
 		#guy {
 		  position: absolute;
-		  left: 0;
+		  left: 700px;
 		  bottom: 31%;
 		  z-index: 3;
 		}
@@ -36,17 +36,21 @@
 			z-index: -1;
 		}
 
+		#potato-count {
+			position: absolute;
+			left: 45%;
+			top: 40%;
+		}
+
 	</style>
 </head>
 
-
-
 <body> 
-
+	<div><h2 id="potato-count"> Potatoes: </h2></div>
 
 	<div id="container">
 		<div id="guy">
-			<img id="idle" src="https://drive.google.com/uc?export=download&id=1q0lP-4RUcd3rvM1DKSjTXxbaz3MNwzJJ"/>
+			<img id="idle" src="https://drive.google.com/uc?export=download&id=1yRB3nDASmnmS9tH8w2WBq4ebK4cpo9Js"/>
 		</div>
 			<img id="floor" src="https://drive.google.com/uc?export=download&id=13YqSII2xgH6Sfqg0HxeH1IVybH1BMuIb"/>
 
@@ -75,6 +79,8 @@
 		var runLeft = 'https://drive.google.com/uc?export=download&id=1GAJyfg_NRuEDaE61H4x5jTesNsKdduCq';
 		var idleRight = 'https://drive.google.com/uc?export=download&id=1q0lP-4RUcd3rvM1DKSjTXxbaz3MNwzJJ';
 		var idleLeft = 'https://drive.google.com/uc?export=download&id=1yRB3nDASmnmS9tH8w2WBq4ebK4cpo9Js';
+		var attackRight = 'https://drive.google.com/uc?export=download&id=1ig2iROJWOqvdP7oCcgdnQHhUkZyzgLOi';
+		var attackLeft = 'https://drive.google.com/uc?export=download&id=1-GQu_YAbvoo2nuXC6l4ce5u7QuWuC0t6';
 
 		var keyState = {};
 		window.addEventListener('keydown', function(e){
@@ -84,16 +90,40 @@
 			keyState[e.keyCode || e.which] = false;
 		},true);
 
+		var pressed = {};
+		var output = document.getElementById('output');
+
+		window.onkeydown = function(e) {
+		    if ( pressed[e.which] ) return;
+		    pressed[e.which] = e.timeStamp;
+		};
+		    
+		window.onkeyup = function(e) {
+		    if ( !pressed[e.which] ) return;
+		    var duration = ( e.timeStamp - pressed[e.which] ) / 1000;
+			//output.innerHTML += '<p>Key ' + e.which  + ' was pressed for ' + duration + ' seconds</p>';
+		    pressed[e.which] = 0;
+
+
+		    if(guyLeft-30 <= 40 && facing == 1 && e.which == 32 && duration >= .577){
+		    	count += parseInt(duration/1);
+		    	detectIfHit();
+		    }
+		 }
+
 		var guy = document.getElementById('guy');
 		var container = document.getElementById('container');
 
-		var guyLeft = 0;
-		var guyTop = 0;
+		var guyLeft = 700;
 
 		// value: 0 = char facing right | value: 1 = char facing left
 		var facing = 0;
 
 		var bool = true;
+
+		function initialize(){
+			
+		}
 
 		function anim(){
 		  if(keyState[39]){
@@ -118,7 +148,7 @@
 		    facing = 1;
 		    guyLeft -= 4;
 		    guy.style.left = guyLeft + 'px';
-		      if(guyLeft <= 0) {
+		      if(guyLeft <= 30) {
 		        guyLeft += 4;
 		      }
 		      document.onkeyup = function() {setIdleLeft()};
@@ -135,7 +165,7 @@
 		   		document.getElementById("idle").src='https://drive.google.com/uc?export=download&id=1-GQu_YAbvoo2nuXC6l4ce5u7QuWuC0t6';
 		   		bool = false;
 		   	}	
-		   		document.onkeyup = function() {setIdleLeft()};
+		   		document.onkeyup = function() {setIdleLeft()};	   		
 		  }
 		}
 
@@ -149,9 +179,14 @@
 		  	bool = true;
 		}
 
+		var div = document.getElementById('potato-count');
+		var count = 0;
+		div.innerHTML += count;
 		function detectIfHit(){
-			
-		}
+	    	setIdleLeft();
+			div.innerHTML = "Potatoes: " + count;
+	    	console.log("hit");
+		}    
 
 		document.onkeydown = anim;
 	
