@@ -35,7 +35,7 @@
 		#guy {
 		  position: absolute;
 		  left: 700px;
-		  bottom: 31%;
+		  bottom: 93px;
 		  z-index: 3;
 		}
 
@@ -58,7 +58,7 @@
 			position: absolute;
 			height: 150px;
 			width: 150px;
-			bottom: 210px;
+			bottom: 214px;
 			left: 1337.50px;
 			z-index: -1;
 		} 
@@ -67,6 +67,7 @@
 </head>
 
 <body class="unselectable"> 
+	<audio id="potato-song" src="https://drive.google.com/uc?export=download&id=13BflK_Ydfg6X_K43yTLiGQUiQ3tLPOYK" loop="loop"></audio>
 	
 	<div id="container">
 		<h2 id="potato-count"> Potatoes: </h2>
@@ -82,6 +83,11 @@
 	</div>
 
 	<script>
+		window.onload = function() {
+		    document.getElementById("potato-song").play();
+		}
+		// Song @ https://goo.gl/YSRXkZ & https://drive.google.com/uc?export=download&id=1dRCqQAtNTgzsioRSoH7qXznYalaOr_le
+		// Song version 3: https://drive.google.com/uc?export=download&id=13BflK_Ydfg6X_K43yTLiGQUiQ3tLPOYK | edit @ https://goo.gl/isLarB
 		var char = document.getElementById("char");
 		var runRight = 'https://drive.google.com/uc?export=download&id=1biXVJA9_lI4es9i4wE497BKGjN1j98wY';
 		var runLeft = 'https://drive.google.com/uc?export=download&id=1GAJyfg_NRuEDaE61H4x5jTesNsKdduCq';
@@ -128,22 +134,22 @@
 		// Current position (in px) of the character
 		var guyLeft = 700;
 
-		// value: 0 = char facing right | value: 1 = char facing left
+		// (0 = char facing right) & (1 = char facing left)
 		var facing = 1;
 
 		var running = true;
 
 		function anim(e){
 		  if(event.key == "ArrowRight"){
+		  	facing = 0;
 		  	charRunRight();
-		    facing = 0;
 		    guyLeft += 4;
 		    guy.style.left = guyLeft + 'px';
 		  }
 
 		  if(event.key == "ArrowLeft"){
+		  	facing = 1;
 		  	charRunLeft();
-		    facing = 1;
 		    guyLeft -= 4;
 		    guy.style.left = guyLeft + 'px';
 		  }
@@ -156,15 +162,23 @@
 
 		}
 
+		var guyUpStairs = 94;
 		function charRunRight(){
 			while(running == true){
 		    	char.src = runRight;
 		     	running = false;
 			}
 
-			if(guyLeft >= 1460) {
+			if(guyLeft > 1354 && guyLeft != 1440 && facing == 0){
+				guy.style.bottom = guyUpStairs + 'px';
+				guyUpStairs += 2;
+			}
+
+			if(guyLeft >= 1440) {
 		        guyLeft -= 4;
 		    }
+
+		    if(guyLeft)
 		  	document.onkeyup = function() {setIdleRight()};
 		}
 
@@ -173,6 +187,12 @@
 		   		char.src = runLeft;
 		   		running = false;
 		   	}
+
+
+		   	if(guyLeft > 1356 && facing == 1){
+		   		guy.style.bottom = guyUpStairs + 'px';
+		   		guyUpStairs -= 2;
+		   	} 
 
 		   	if(guyLeft <= 30) {
 		        guyLeft += 4;
