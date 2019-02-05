@@ -2,10 +2,12 @@
 <head>
 	<title> Potato Farmer </title>
 	<style>
+		/* Gets Rid of the Scroll Bars */
 		body {
 			overflow: hidden;
 		}
 
+		/* Makes text and images unclickable */
 		.unselectable {
 		    -webkit-touch-callout: none;
 		    -webkit-user-select: none;
@@ -93,18 +95,17 @@
 		var secretRoom = 'https://drive.google.com/uc?export=download&id=1LFDcMjVFeFUD26anSR0aj2jfVF8ihWGz';
 
 		var images = [];
-		function preload() {
+		function preloadImages() {
 		    for (var i = 0; i < arguments.length; i++) {
 		        images[i] = new Image();
-		        images[i].src = preload.arguments[i];
+		        images[i].src = preloadImages.arguments[i];
 		    }
 		}
 
 		// Preload all images (improves animation speed)
-		preload(runRight, runLeft, idleRight, idleLeft, attackRight, attackLeft, platform, potato, background, secretRoom);
+		preloadImages(runRight, runLeft, idleRight, idleLeft, attackRight, attackLeft, platform, potato, background, secretRoom);
 
 		var pressed = {};
-
 		window.onkeydown = function(e){
 		    if (pressed[e.which]) return;
 		    pressed[e.which] = e.timeStamp;
@@ -128,30 +129,20 @@
 		var guyLeft = 700;
 
 		// value: 0 = char facing right | value: 1 = char facing left
-		var facing = 0;
+		var facing = 1;
 
 		var running = true;
 
 		function anim(e){
 		  if(event.key == "ArrowRight"){
-		  	while(running == true){
-		    	char.src=runRight;
-		    	running = false;
-			}
+		  	charRunRight();
 		    facing = 0;
 		    guyLeft += 4;
 		    guy.style.left = guyLeft + 'px';
-		      if(guyLeft >= 1460) {
-		        guyLeft -= 4;
-		      } 
-		  	  document.onkeyup = function() {setIdleRight()};
 		  }
 
 		  if(event.key == "ArrowLeft"){
-		  	while(running == true){
-		   		char.src =runLeft;
-		   		running = false;
-		   	}
+		  	charRunLeft();
 		    facing = 1;
 		    guyLeft -= 4;
 		    guy.style.left = guyLeft + 'px';
@@ -162,28 +153,56 @@
 		  }
 
 		  if(e.keyCode == 32 && facing == 0){
-			while(running == true){
-		   		char.src=attackRight;
-		   		running = false;
+			while(attacking == true){
+		   		char.src = attackRight;
+		   		attacking = false;
 		   	}	
 		   		document.onkeyup = function() {setIdleRight()};
 		  } else if(e.keyCode == 32 && facing == 1){
-		  		while(running == true){
-		   		char.src=attackLeft;
-		   		running = false;
+		  		while(attacking == true){
+		   		char.src = attackLeft;
+		   		attacking = false;
 		   	}	
 		   		document.onkeyup = function() {setIdleLeft()};	   		
 		  }
 		}
 
+		function charRunRight(){
+			while(running == true){
+		    	char.src = runRight;
+		     	running = false;
+			}
+
+			if(guyLeft >= 1460) {
+		        guyLeft -= 4;
+		    }
+
+		  	document.onkeyup = function() {setIdleRight()};
+		}
+
+		function charRunLeft(){
+			while(running == true){
+		   		char.src = runLeft;
+		   		running = false;
+		   	}
+
+		   	if(guyLeft <= 30) {
+		        guyLeft += 4;
+		    }
+
+		    document.onkeyup = function() {setIdleLeft()};
+		}
+
 		function setIdleRight(){
-			char.src=idleRight;
+			char.src = idleRight;
 			running = true;
+			attacking = true;
 		}
 
 		function setIdleLeft(){
-		  	char.src=idleLeft;
+		  	char.src = idleLeft;
 		  	running = true;
+		  	attacking = true;
 		}
 
 		var div = document.getElementById('potato-count');
