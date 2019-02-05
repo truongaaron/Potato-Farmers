@@ -102,6 +102,9 @@
 		var idleLeft = 'https://drive.google.com/uc?export=download&id=1yRB3nDASmnmS9tH8w2WBq4ebK4cpo9Js';
 		var attackRight = 'https://drive.google.com/uc?export=download&id=1ig2iROJWOqvdP7oCcgdnQHhUkZyzgLOi';
 		var attackLeft = 'https://drive.google.com/uc?export=download&id=1-GQu_YAbvoo2nuXC6l4ce5u7QuWuC0t6';
+		var platform = "https://drive.google.com/uc?export=download&id=13YqSII2xgH6Sfqg0HxeH1IVybH1BMuIb";
+		var potato = "https://drive.google.com/uc?export=download&id=1XZOx4XWZ248kgtiolhdxPlMU8NTRuWbf";
+		var background = "https://drive.google.com/uc?export=download&id=1MFI6T0rMaDL8YpdPdC59MzjZYFMuvrUz";
 
 		var images = [];
 		function preload() {
@@ -111,41 +114,20 @@
 		    }
 		}
 
-		//-- usage --//
-		preload(
-		    "https://drive.google.com/uc?export=download&id=1MFI6T0rMaDL8YpdPdC59MzjZYFMuvrUz",
-		    "https://drive.google.com/uc?export=download&id=1XZOx4XWZ248kgtiolhdxPlMU8NTRuWbf",
-		    "https://drive.google.com/uc?export=download&id=1GAJyfg_NRuEDaE61H4x5jTesNsKdduCq",
-		    "https://drive.google.com/uc?export=download&id=1biXVJA9_lI4es9i4wE497BKGjN1j98wY",
-		    "https://drive.google.com/uc?export=download&id=1-GQu_YAbvoo2nuXC6l4ce5u7QuWuC0t6",
-		    "https://drive.google.com/uc?export=download&id=1ig2iROJWOqvdP7oCcgdnQHhUkZyzgLOi",
-		    "https://drive.google.com/uc?export=download&id=1yRB3nDASmnmS9tH8w2WBq4ebK4cpo9Js",
-		    "https://drive.google.com/uc?export=download&id=1q0lP-4RUcd3rvM1DKSjTXxbaz3MNwzJJ",
-		    "https://drive.google.com/uc?export=download&id=13YqSII2xgH6Sfqg0HxeH1IVybH1BMuIb"
-		);
-
-		var keyState = {};
-		window.addEventListener('keydown', function(e){
-			keyState[e.keyCode || e.which] = true;
-		},true);
-		window.addEventListener('keyup', function(e){
-			keyState[e.keyCode || e.which] = false;
-		},true);
+		// Preload all images (improves animation speed)
+		preload(runRight, runLeft, idleRight, idleLeft, attackRight, attackLeft, platform, potato, background);
 
 		var pressed = {};
-		var output = document.getElementById('output');
 
-		window.onkeydown = function(e) {
-		    if ( pressed[e.which] ) return;
+		window.onkeydown = function(e){
+		    if (pressed[e.which]) return;
 		    pressed[e.which] = e.timeStamp;
 		};
 		    
-		window.onkeyup = function(e) {
-		    if ( !pressed[e.which] ) return;
-		    var duration = ( e.timeStamp - pressed[e.which] ) / 1000;
-			//output.innerHTML += '<p>Key ' + e.which  + ' was pressed for ' + duration + ' seconds</p>';
+		window.onkeyup = function(e){
+		    if (!pressed[e.which]) return;
+		    var duration = (e.timeStamp-pressed[e.which])/1000;
 		    pressed[e.which] = 0;
-
 
 		    if(guyLeft-30 <= 40 && facing == 1 && e.which == 32 && duration >= .577){
 		    	count += parseInt(duration/1);
@@ -156,6 +138,7 @@
 		var guy = document.getElementById('guy');
 		var container = document.getElementById('container');
 
+		// Current position (in px) of the character
 		var guyLeft = 700;
 
 		// value: 0 = char facing right | value: 1 = char facing left
@@ -163,7 +146,7 @@
 
 		var bool = true;
 
-		function anim(){
+		function anim(e){
 		  if(event.key == "ArrowRight"){
 		  	while(bool == true){
 		    	char.src=runRight;
@@ -192,13 +175,13 @@
 		      document.onkeyup = function() {setIdleLeft()};
 		  }
 
-		  if(keyState[32] && facing == 0){
+		  if(e.keyCode == 32 && facing == 0){
 			while(bool == true){
 		   		char.src=attackRight;
 		   		bool = false;
 		   	}	
 		   		document.onkeyup = function() {setIdleRight()};
-		  } else if(keyState[32] && facing == 1){
+		  } else if(e.keyCode == 32 && facing == 1){
 		  		while(bool == true){
 		   		char.src=attackLeft;
 		   		bool = false;
