@@ -64,11 +64,10 @@
 
 <body class="unselectable"> 
 	
-
 	<div id="container">
 		<h2 id="potato-count"> Potatoes: </h2>
 		<div id="guy">
-			<img id="idle" src="https://drive.google.com/uc?export=download&id=1yRB3nDASmnmS9tH8w2WBq4ebK4cpo9Js"/>
+			<img id="char" src="https://drive.google.com/uc?export=download&id=1yRB3nDASmnmS9tH8w2WBq4ebK4cpo9Js"/>
 		</div>
 			<img id="floor" src="https://drive.google.com/uc?export=download&id=13YqSII2xgH6Sfqg0HxeH1IVybH1BMuIb"/>
 
@@ -85,7 +84,6 @@
 	</div>
 
 	<script>
-		document.firstElementChild.style.zoom = "reset";
 		/*
 		platform: https://drive.google.com/uc?export=download&id=13YqSII2xgH6Sfqg0HxeH1IVybH1BMuIb
 		idle-right: https://drive.google.com/uc?export=download&id=1q0lP-4RUcd3rvM1DKSjTXxbaz3MNwzJJ
@@ -97,12 +95,34 @@
 		potato: https://drive.google.com/uc?export=download&id=1XZOx4XWZ248kgtiolhdxPlMU8NTRuWbf
 		background: https://drive.google.com/uc?export=download&id=1MFI6T0rMaDL8YpdPdC59MzjZYFMuvrUz
 		*/
+		var char = document.getElementById("char");
 		var runRight = 'https://drive.google.com/uc?export=download&id=1biXVJA9_lI4es9i4wE497BKGjN1j98wY';
 		var runLeft = 'https://drive.google.com/uc?export=download&id=1GAJyfg_NRuEDaE61H4x5jTesNsKdduCq';
 		var idleRight = 'https://drive.google.com/uc?export=download&id=1q0lP-4RUcd3rvM1DKSjTXxbaz3MNwzJJ';
 		var idleLeft = 'https://drive.google.com/uc?export=download&id=1yRB3nDASmnmS9tH8w2WBq4ebK4cpo9Js';
 		var attackRight = 'https://drive.google.com/uc?export=download&id=1ig2iROJWOqvdP7oCcgdnQHhUkZyzgLOi';
 		var attackLeft = 'https://drive.google.com/uc?export=download&id=1-GQu_YAbvoo2nuXC6l4ce5u7QuWuC0t6';
+
+		var images = [];
+		function preload() {
+		    for (var i = 0; i < arguments.length; i++) {
+		        images[i] = new Image();
+		        images[i].src = preload.arguments[i];
+		    }
+		}
+
+		//-- usage --//
+		preload(
+		    "https://drive.google.com/uc?export=download&id=1MFI6T0rMaDL8YpdPdC59MzjZYFMuvrUz",
+		    "https://drive.google.com/uc?export=download&id=1XZOx4XWZ248kgtiolhdxPlMU8NTRuWbf",
+		    "https://drive.google.com/uc?export=download&id=1GAJyfg_NRuEDaE61H4x5jTesNsKdduCq",
+		    "https://drive.google.com/uc?export=download&id=1biXVJA9_lI4es9i4wE497BKGjN1j98wY",
+		    "https://drive.google.com/uc?export=download&id=1-GQu_YAbvoo2nuXC6l4ce5u7QuWuC0t6",
+		    "https://drive.google.com/uc?export=download&id=1ig2iROJWOqvdP7oCcgdnQHhUkZyzgLOi",
+		    "https://drive.google.com/uc?export=download&id=1yRB3nDASmnmS9tH8w2WBq4ebK4cpo9Js",
+		    "https://drive.google.com/uc?export=download&id=1q0lP-4RUcd3rvM1DKSjTXxbaz3MNwzJJ",
+		    "https://drive.google.com/uc?export=download&id=13YqSII2xgH6Sfqg0HxeH1IVybH1BMuIb"
+		);
 
 		var keyState = {};
 		window.addEventListener('keydown', function(e){
@@ -143,14 +163,10 @@
 
 		var bool = true;
 
-		function initialize(){
-			
-		}
-
 		function anim(){
-		  if(keyState[39]){
+		  if(event.key == "ArrowRight"){
 		  	while(bool == true){
-		    	document.getElementById("idle").src=runRight;
+		    	char.src=runRight;
 		    	bool = false;
 			}
 		    facing = 0;
@@ -162,9 +178,9 @@
 		  	  document.onkeyup = function() {setIdleRight()};
 		  }
 
-		  if(keyState[37]){
+		  if(event.key == "ArrowLeft"){
 		  	while(bool == true){
-		   		document.getElementById("idle").src=runLeft;
+		   		char.src =runLeft;
 		   		bool = false;
 		   	}
 		    facing = 1;
@@ -178,13 +194,13 @@
 
 		  if(keyState[32] && facing == 0){
 			while(bool == true){
-		   		document.getElementById("idle").src='https://drive.google.com/uc?export=download&id=1ig2iROJWOqvdP7oCcgdnQHhUkZyzgLOi';
+		   		char.src=attackRight;
 		   		bool = false;
 		   	}	
 		   		document.onkeyup = function() {setIdleRight()};
 		  } else if(keyState[32] && facing == 1){
 		  		while(bool == true){
-		   		document.getElementById("idle").src='https://drive.google.com/uc?export=download&id=1-GQu_YAbvoo2nuXC6l4ce5u7QuWuC0t6';
+		   		char.src=attackLeft;
 		   		bool = false;
 		   	}	
 		   		document.onkeyup = function() {setIdleLeft()};	   		
@@ -192,12 +208,12 @@
 		}
 
 		function setIdleRight(){
-			document.getElementById("idle").src=idleRight;
+			char.src=idleRight;
 			bool = true;
 		}
 
 		function setIdleLeft(){
-		  	document.getElementById("idle").src=idleLeft;
+		  	char.src=idleLeft;
 		  	bool = true;
 		}
 
