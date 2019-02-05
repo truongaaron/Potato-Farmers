@@ -130,13 +130,13 @@
 		// value: 0 = char facing right | value: 1 = char facing left
 		var facing = 0;
 
-		var bool = true;
+		var running = true;
 
 		function anim(e){
 		  if(event.key == "ArrowRight"){
-		  	while(bool == true){
+		  	while(running == true){
 		    	char.src=runRight;
-		    	bool = false;
+		    	running = false;
 			}
 		    facing = 0;
 		    guyLeft += 4;
@@ -148,9 +148,9 @@
 		  }
 
 		  if(event.key == "ArrowLeft"){
-		  	while(bool == true){
+		  	while(running == true){
 		   		char.src =runLeft;
-		   		bool = false;
+		   		running = false;
 		   	}
 		    facing = 1;
 		    guyLeft -= 4;
@@ -162,15 +162,15 @@
 		  }
 
 		  if(e.keyCode == 32 && facing == 0){
-			while(bool == true){
+			while(running == true){
 		   		char.src=attackRight;
-		   		bool = false;
+		   		running = false;
 		   	}	
 		   		document.onkeyup = function() {setIdleRight()};
 		  } else if(e.keyCode == 32 && facing == 1){
-		  		while(bool == true){
+		  		while(running == true){
 		   		char.src=attackLeft;
-		   		bool = false;
+		   		running = false;
 		   	}	
 		   		document.onkeyup = function() {setIdleLeft()};	   		
 		  }
@@ -178,12 +178,12 @@
 
 		function setIdleRight(){
 			char.src=idleRight;
-			bool = true;
+			running = true;
 		}
 
 		function setIdleLeft(){
 		  	char.src=idleLeft;
-		  	bool = true;
+		  	running = true;
 		}
 
 		var div = document.getElementById('potato-count');
@@ -192,9 +192,9 @@
 		function detectIfHit(){
 	    	setIdleLeft();
 			div.innerHTML = "Potatoes: " + count;
-	    	console.log("hit");
 		}    
 
+		// If user presses any key, function(s) is fired
 		document.onkeydown = anim;
 	
 	</script>
