@@ -54,8 +54,10 @@
 
 		#secret-room {
 			position: absolute;
-			bottom: 83.5px;
-			left: 1424.5px;
+			height: 150px;
+			width: 150px;
+			bottom: 210px;
+			left: 1337.50px;
 			z-index: -1;
 		} 
 
@@ -66,16 +68,10 @@
 	
 	<div id="container">
 		<h2 id="potato-count"> Potatoes: </h2>
-		<div id="guy">
-			<img id="char" src="https://drive.google.com/uc?export=download&id=1yRB3nDASmnmS9tH8w2WBq4ebK4cpo9Js"/>
-		</div>
-			<img id="floor" src="https://drive.google.com/uc?export=download&id=13YqSII2xgH6Sfqg0HxeH1IVybH1BMuIb"/>
-
-		<div id="potato">
-			<img src="https://drive.google.com/uc?export=download&id=1XZOx4XWZ248kgtiolhdxPlMU8NTRuWbf"/>
-		</div>
-
-		<img style="height: 200px; width: 200px" id="secret-room" src="https://drive.google.com/uc?export=download&id=1LFDcMjVFeFUD26anSR0aj2jfVF8ihWGz"/>
+		<div id="guy"><img id="char" src="https://drive.google.com/uc?export=download&id=1yRB3nDASmnmS9tH8w2WBq4ebK4cpo9Js"/></div>
+		<div id="floor"><img src="https://drive.google.com/uc?export=download&id=13YqSII2xgH6Sfqg0HxeH1IVybH1BMuIb"/></div>
+		<div id="potato"><img src="https://drive.google.com/uc?export=download&id=1XZOx4XWZ248kgtiolhdxPlMU8NTRuWbf"/></div>
+		<div id="secret-room"><img src="https://drive.google.com/uc?export=download&id=1LFDcMjVFeFUD26anSR0aj2jfVF8ihWGz"/></div>
 		
 	</div>
 
@@ -84,17 +80,6 @@
 	</div>
 
 	<script>
-		/*
-		platform: https://drive.google.com/uc?export=download&id=13YqSII2xgH6Sfqg0HxeH1IVybH1BMuIb
-		idle-right: https://drive.google.com/uc?export=download&id=1q0lP-4RUcd3rvM1DKSjTXxbaz3MNwzJJ
-		idle-left: https://drive.google.com/uc?export=download&id=1yRB3nDASmnmS9tH8w2WBq4ebK4cpo9Js
-		attack-right: https://drive.google.com/uc?export=download&id=1ig2iROJWOqvdP7oCcgdnQHhUkZyzgLOi
-		attack-left: https://drive.google.com/uc?export=download&id=1-GQu_YAbvoo2nuXC6l4ce5u7QuWuC0t6
-		run-right: https://drive.google.com/uc?export=download&id=1biXVJA9_lI4es9i4wE497BKGjN1j98wY
-		run-left: https://drive.google.com/uc?export=download&id=1GAJyfg_NRuEDaE61H4x5jTesNsKdduCq
-		potato: https://drive.google.com/uc?export=download&id=1XZOx4XWZ248kgtiolhdxPlMU8NTRuWbf
-		background: https://drive.google.com/uc?export=download&id=1MFI6T0rMaDL8YpdPdC59MzjZYFMuvrUz
-		*/
 		var char = document.getElementById("char");
 		var runRight = 'https://drive.google.com/uc?export=download&id=1biXVJA9_lI4es9i4wE497BKGjN1j98wY';
 		var runLeft = 'https://drive.google.com/uc?export=download&id=1GAJyfg_NRuEDaE61H4x5jTesNsKdduCq';
@@ -102,9 +87,10 @@
 		var idleLeft = 'https://drive.google.com/uc?export=download&id=1yRB3nDASmnmS9tH8w2WBq4ebK4cpo9Js';
 		var attackRight = 'https://drive.google.com/uc?export=download&id=1ig2iROJWOqvdP7oCcgdnQHhUkZyzgLOi';
 		var attackLeft = 'https://drive.google.com/uc?export=download&id=1-GQu_YAbvoo2nuXC6l4ce5u7QuWuC0t6';
-		var platform = "https://drive.google.com/uc?export=download&id=13YqSII2xgH6Sfqg0HxeH1IVybH1BMuIb";
-		var potato = "https://drive.google.com/uc?export=download&id=1XZOx4XWZ248kgtiolhdxPlMU8NTRuWbf";
-		var background = "https://drive.google.com/uc?export=download&id=1MFI6T0rMaDL8YpdPdC59MzjZYFMuvrUz";
+		var platform = 'https://drive.google.com/uc?export=download&id=13YqSII2xgH6Sfqg0HxeH1IVybH1BMuIb';
+		var potato = 'https://drive.google.com/uc?export=download&id=1XZOx4XWZ248kgtiolhdxPlMU8NTRuWbf';
+		var background = 'https://drive.google.com/uc?export=download&id=1MFI6T0rMaDL8YpdPdC59MzjZYFMuvrUz';
+		var secretRoom = 'https://drive.google.com/uc?export=download&id=1LFDcMjVFeFUD26anSR0aj2jfVF8ihWGz';
 
 		var images = [];
 		function preload() {
@@ -115,7 +101,7 @@
 		}
 
 		// Preload all images (improves animation speed)
-		preload(runRight, runLeft, idleRight, idleLeft, attackRight, attackLeft, platform, potato, background);
+		preload(runRight, runLeft, idleRight, idleLeft, attackRight, attackLeft, platform, potato, background, secretRoom);
 
 		var pressed = {};
 
