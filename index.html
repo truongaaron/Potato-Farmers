@@ -146,25 +146,14 @@
 		    facing = 1;
 		    guyLeft -= 4;
 		    guy.style.left = guyLeft + 'px';
-		      if(guyLeft <= 30) {
-		        guyLeft += 4;
-		      }
-		      document.onkeyup = function() {setIdleLeft()};
 		  }
 
 		  if(e.keyCode == 32 && facing == 0){
-			while(attacking == true){
-		   		char.src = attackRight;
-		   		attacking = false;
-		   	}	
-		   		document.onkeyup = function() {setIdleRight()};
+				charAttackRight();
 		  } else if(e.keyCode == 32 && facing == 1){
-		  		while(attacking == true){
-		   		char.src = attackLeft;
-		   		attacking = false;
-		   	}	
-		   		document.onkeyup = function() {setIdleLeft()};	   		
+		  		charAttackLeft();   		
 		  }
+
 		}
 
 		function charRunRight(){
@@ -176,7 +165,6 @@
 			if(guyLeft >= 1460) {
 		        guyLeft -= 4;
 		    }
-
 		  	document.onkeyup = function() {setIdleRight()};
 		}
 
@@ -189,8 +177,23 @@
 		   	if(guyLeft <= 30) {
 		        guyLeft += 4;
 		    }
-
 		    document.onkeyup = function() {setIdleLeft()};
+		}
+
+		function charAttackRight(){
+			while(attacking == true){
+		   		char.src = attackRight;
+		   		attacking = false;
+		   	}	
+		   	document.onkeyup = function() {setIdleRight()};
+		}
+
+		function charAttackLeft(){
+			while(attacking == true){
+		   		char.src = attackLeft;
+		   		attacking = false;
+		   	}	
+		   	document.onkeyup = function() {setIdleLeft()};	
 		}
 
 		function setIdleRight(){
