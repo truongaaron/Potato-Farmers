@@ -1,0 +1,66 @@
+body {
+	overflow: hidden;
+}
+
+/* Makes text and images unclickable */
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+}
+
+#potato {
+  position: absolute;
+  bottom: 31%;
+  z-index: 2;
+}
+
+#container {  
+  position: absolute;
+  bottom: -10px;
+  left: 0px;
+  width: 100%;
+  z-index: 1;
+}
+
+#guy {
+  position: absolute;
+  left: 700px;
+  bottom: 93px;
+  z-index: 3;
+}
+
+#background {
+	position: absolute;
+	bottom: -10%;
+	left: 0;
+	width: 1600px;
+	height: 900px;
+	z-index: -1;
+}
+
+#potato-count {
+	position: absolute;
+	left: 700px;
+	bottom: 450px;
+}
+
+#secret-room {
+	position: absolute;
+	height: 150px;
+	width: 150px;
+	bottom: 214px;
+	left: 1337.50px;
+	z-index: -1;
+} 
+
+#mute-button {
+	position: absolute;
+	z-index: 1;
+	bottom: 10px;
+	left: 5px;
+}
